@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050d1a">
+<meta name="description" content="Automation Engineer II – Professional Learning Guide">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AE-II">
+<title>Automation Engineer II – Professional Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --font-ui: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* 4 type sizes only */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 15px;
+  --text-lg:   20px;
+  --text-xl:   28px;
+
+  /* 8px grid */
+  --sp1:8px; --sp2:16px; --sp3:24px; --sp4:32px; --sp5:40px; --sp6:48px;
+
+  /* Layout */
+  --nav-h: 64px;
+  --hdr-h: 56px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  /* Dark theme — default */
+  --bg-base:     #050d1a;
+  --bg-surface:  #0a1628;
+  --bg-elevated: #0f1f35;
+  --bg-card:     #112035;
+  --bg-overlay:  #162840;
+
+  --text-primary:   #e8f1ff;
+  --text-secondary: #8ba6c8;
+  --text-muted:     #4d6a8a;
+  --text-disabled:  #2a4060;
+
+  --accent:     #00d4ff;
+  --accent-dim: rgba(0,212,255,0.12);
+  --accent-glow:rgba(0,212,255,0.25);
+  --gold:       #f59e0b;
+  --gold-dim:   rgba(245,158,11,0.12);
+  --green:      #10b981;
+  --green-dim:  rgba(16,185,129,0.12);
+  --rose:       #f43f5e;
+  --rose-dim:   rgba(244,63,94,0.12);
+  --violet:     #818cf8;
+  --violet-dim: rgba(129,140,248,0.12);
+
+  --border:     rgba(255,255,255,0.06);
+  --border-md:  rgba(255,255,255,0.10);
+  --border-accent: rgba(0,212,255,0.3);
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.5);
+  --shadow-lg:  0 8px 40px rgba(0,0,0,0.6);
+  --glow-accent:0 0 20px rgba(0,212,255,0.15);
+  --glow-gold:  0 0 20px rgba(245,158,11,0.15);
+
+  --focus-ring: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--accent);
+}
+
+[data-theme="light"] {
+  --bg-base:     #f0f4fa;
+  --bg-surface:  #ffffff;
+  --bg-elevated: #f8faff;
+  --bg-card:     #ffffff;
+  --bg-overlay:  #eef2fa;
+
+  --text-primary:   #0d1b2e;
+  --text-secondary: #3d5470;
+  --text-muted:     #6b84a0;
+  --text-disabled:  #b0c4d8;
+
+  --accent:     #0070d4;
+  --accent-dim: rgba(0,112,212,0.08);
+  --accent-glow:rgba(0,112,212,0.15);
+  --gold:       #c07700;
+  --gold-dim:   rgba(192,119,0,0.08);
+  --green:      #047857;
+  --green-dim:  rgba(4,120,87,0.08);
+  --rose:       #be123c;
+  --rose-dim:   rgba(190,18,60,0.08);
+  --violet:     #4338ca;
+  --violet-dim: rgba(67,56,202,0.08);
+
+  --border:     rgba(0,0,0,0.07);
+  --border-md:  rgba(0,0,0,0.12);
+  --border-accent: rgba(0,112,212,0.3);
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg:  0 8px 40px rgba(0,0,0,0.10);
+  --glow-accent:0 0 20px rgba(0,112,212,0.08);
+}
+
+/* ═══════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:100%;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:var(--font-ui);
+  font-size:var(--text-base);
+  color:var(--text-primary);
+  background:var(--bg-base);
+  line-height:1.6;
+  overflow-x:hidden;
+  transition:background 0.3s ease, color 0.3s ease;
+}
+ul{list-style:none}
+button{cursor:pointer;font-family:var(--font-ui);border:none}
+:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:4px}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-md);border-radius:2px}
+
+/* ═══════════════════════════════════════════
+   OFFLINE BAR
+═══════════════════════════════════════════ */
+#offline-bar{
+  display:none;
+  background:var(--gold);
+  color:#0d1b2e;
+  font-size:var(--text-xs);
+  font-weight:700;
+  text-align:center;
+  padding:5px var(--sp2);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+#offline-bar.visible{display:block}
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+#app-header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:var(--hdr-h);
+  background:var(--bg-surface);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 var(--sp2);
+  z-index:100;
+  border-bottom:1px solid var(--border);
+  /* Dot grid pattern */
+  background-image:
+    radial-gradient(circle, rgba(0,212,255,0.06) 1px, transparent 1px);
+  background-size:24px 24px;
+  background-color:var(--bg-surface);
+}
+/* Header shimmer line */
+#app-header::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0.4;
+}
+
+#header-wordmark{
+  display:flex;
+  align-items:center;
+  gap:var(--sp1);
+}
+.hw-badge{
+  font-family:var(--font-mono);
+  font-size:var(--text-xs);
+  font-weight:600;
+  color:var(--bg-surface);
+  background:var(--accent);
+  padding:3px 7px;
+  border-radius:5px;
+  letter-spacing:0.08em;
+}
+[data-theme="light"] .hw-badge{color:#fff}
+#current-page-title{
+  font-family:var(--font-mono);
+  font-size:var(--text-sm);
+  color:var(--text-secondary);
+  letter-spacing:0.04em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:180px;
+}
+
+.header-actions{display:flex;gap:4px}
+.icon-btn{
+  background:none;
+  border:1px solid transparent;
+  color:var(--text-secondary);
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:8px;
+  transition:background 0.15s,color 0.15s,border-color 0.15s;
+  font-size:16px;
+  min-height:44px;
+  width:44px;
+}
+.icon-btn:hover{
+  background:var(--accent-dim);
+  color:var(--accent);
+  border-color:var(--border-accent);
+}
+
+/* ═══════════════════════════════════════════
+   MAIN
+═══════════════════════════════════════════ */
+#main-content{
+  flex:1;
+  padding-top:var(--hdr-h);
+  padding-bottom:var(--nav-h);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* ═══════════════════════════════════════════
+   BOTTOM NAV
+═══════════════════════════════════════════ */
+#bottom-nav{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  height:var(--nav-h);
+  background:var(--bg-surface);
+  display:flex;
+  align-items:stretch;
+  border-top:1px solid var(--border);
+  z-index:100;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav-item{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  background:none;
+  color:var(--text-muted);
+  font-size:var(--text-xs);
+  font-family:var(--font-ui);
+  font-weight:500;
+  cursor:pointer;
+  position:relative;
+  padding:0 4px;
+  transition:color 0.2s;
+  min-height:44px;
+  overflow:hidden;
+  border:none;
+}
+.nav-item::before{
+  /* Top glow bar */
+  content:'';
+  position:absolute;
+  top:0;left:50%;transform:translateX(-50%);
+  width:0;height:2px;
+  background:var(--accent);
+  border-radius:0 0 3px 3px;
+  box-shadow:0 0 12px var(--accent);
+  transition:width 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  opacity:0;
+}
+.nav-item.active::before{width:36px;opacity:1}
+/* Ripple */
+.nav-item::after{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  width:0;height:0;
+  border-radius:50%;
+  background:var(--accent-dim);
+  transform:translate(-50%,-50%);
+  transition:width 0.4s ease,height 0.4s ease,opacity 0.4s ease;
+  opacity:0;
+  pointer-events:none;
+}
+.nav-item:active::after{width:80px;height:80px;opacity:1}
+
+.nav-icon{
+  width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:8px;
+  font-size:16px;
+  transition:background 0.2s,transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.nav-item.active{color:var(--accent)}
+.nav-item.active .nav-icon{
+  background:var(--accent-dim);
+  transform:scale(1.1);
+}
+.nav-label{font-size:9px;letter-spacing:0.04em;white-space:nowrap}
+
+/* ═══════════════════════════════════════════
+   PAGES
+═══════════════════════════════════════════ */
+.page{display:none;padding:var(--sp2);animation:pageIn 0.25s ease both}
+.page.active{display:block}
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(min-width:640px){
+  .page{padding:var(--sp3);max-width:740px;margin:0 auto}
+}
+
+.page-title{
+  font-size:var(--text-xl);
+  font-weight:700;
+  color:var(--text-primary);
+  letter-spacing:-0.02em;
+  line-height:1.15;
+  margin-bottom:4px;
+}
+.page-subtitle{
+  font-family:var(--font-mono);
+  font-size:var(--text-xs);
+  color:var(--text-muted);
+  letter-spacing:0.06em;
+  margin-bottom:var(--sp3);
+}
+
+/* ═══════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════ */
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:var(--sp2);
+  margin-bottom:var(--sp2);
+  box-shadow:var(--shadow-sm);
+  box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,0.05);
+  transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;
+}
+.card:hover{
+  border-color:var(--border-md);
+  box-shadow:var(--shadow-md),inset 0 1px 0 rgba(255,255,255,0.07);
+}
+.card-title{
+  font-size:var(--text-base);
+  font-weight:700;
+  color:var(--text-primary);
+  margin-bottom:var(--sp1);
+}
+.card-meta{
+  font-family:var(--font-mono);
+  font-size:var(--text-xs);
+  color:var(--accent);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+/* ═══════════════════════════════════════════
+   DASHBOARD STATS
+═══════════════════════════════════════════ */
+#dashboard-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:var(--sp1);
+  margin-bottom:var(--sp2);
+}
+.stat-card{
+  border-radius:var(--radius-lg);
+  padding:var(--sp2);
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.stat-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:2px;
+}
+.stat-card.s-blue{background:linear-gradient(135deg,rgba(0,112,212,0.12),rgba(0,212,255,0.06));border-color:rgba(0,212,255,0.15)}
+.stat-card.s-blue::before{background:linear-gradient(90deg,var(--accent),transparent)}
+.stat-card.s-gold{background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(251,191,36,0.04));border-color:rgba(245,158,11,0.15)}
+.stat-card.s-gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.stat-card.s-green{background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(52,211,153,0.04));border-color:rgba(16,185,129,0.15)}
+.stat-card.s-green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.stat-card.s-violet{background:linear-gradient(135deg,rgba(129,140,248,0.1),rgba(167,139,250,0.04));border-color:rgba(129,140,248,0.15)}
+.stat-card.s-violet::before{background:linear-gradient(90deg,var(--violet),transparent)}
+
+.stat-value{
+  font-family:var(--font-mono);
+  font-size:var(--text-xl);
+  font-weight:600;
+  line-height:1;
+  transition:color 0.3s;
+}
+.s-blue .stat-value{color:var(--accent)}
+.s-gold .stat-value{color:var(--gold)}
+.s-green .stat-value{color:var(--green)}
+.s-violet .stat-value{color:var(--violet)}
+.stat-label{font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em}
+
+/* ═══════════════════════════════════════════
+   PROGRESS BAR
+═══════════════════════════════════════════ */
+.progress-wrap{
+  background:var(--bg-overlay);
+  border-radius:100px;
+  height:6px;
+  overflow:hidden;
+  margin:var(--sp1) 0;
+  position:relative;
+}
+.progress-bar{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),#00aaff,var(--accent));
+  background-size:200% 100%;
+  border-radius:100px;
+  transition:width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  animation:shimmer 2s linear infinite;
+}
+@keyframes shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:0 0}
+}
+
+/* ═══════════════════════════════════════════
+   MODULE LIST
+═══════════════════════════════════════════ */
+.module-list{display:flex;flex-direction:column;gap:var(--sp1)}
+.module-item{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:var(--sp2);
+  display:grid;
+  grid-template-columns:44px 1fr auto;
+  gap:var(--sp1);
+  align-items:center;
+  cursor:pointer;
+  transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s;
+  min-height:56px;
+  animation:itemIn 0.3s ease both;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.module-item:hover{
+  border-color:var(--border-accent);
+  box-shadow:var(--shadow-md),var(--glow-accent),inset 0 1px 0 rgba(255,255,255,0.06);
+  transform:translateY(-1px);
+}
+.module-item:active{transform:translateY(0) scale(0.99)}
+@keyframes itemIn{
+  from{opacity:0;transform:translateX(-8px)}
+  to{opacity:1;transform:translateX(0)}
+}
+.module-icon{
+  width:44px;height:44px;
+  background:var(--accent-dim);
+  border:1px solid var(--border-accent);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  transition:transform 0.2s;
+}
+.module-item:hover .module-icon{transform:scale(1.05)}
+.module-item.done .module-icon{background:var(--green-dim);border-color:rgba(16,185,129,0.3)}
+.module-name{font-size:var(--text-sm);font-weight:600;color:var(--text-primary)}
+.module-desc{font-size:var(--text-xs);color:var(--text-muted);margin-top:2px}
+.module-status{
+  font-family:var(--font-mono);
+  font-size:var(--text-xs);
+  font-weight:600;
+  white-space:nowrap;
+  padding:3px 8px;
+  border-radius:100px;
+  border:1px solid;
+  letter-spacing:0.04em;
+}
+.module-status.complete{color:var(--green);border-color:rgba(16,185,129,0.3);background:var(--green-dim)}
+.module-status.pending{color:var(--text-muted);border-color:var(--border);background:transparent}
+
+/* ═══════════════════════════════════════════
+   ACCORDION
+═══════════════════════════════════════════ */
+.accordion{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  margin-bottom:var(--sp1);
+  overflow:hidden;
+  transition:border-color 0.2s;
+}
+.accordion.open{border-color:var(--border-md)}
+.accordion-header{
+  width:100%;
+  background:var(--bg-card);
+  border:none;
+  padding:var(--sp2);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  text-align:left;
+  font-size:var(--text-sm);
+  font-weight:600;
+  color:var(--text-primary);
+  min-height:44px;
+  transition:background 0.15s,color 0.15s;
+  gap:var(--sp1);
+}
+.accordion-header:hover{background:var(--bg-elevated);color:var(--accent)}
+.accordion.open .accordion-header{color:var(--accent)}
+.accordion-icon{
+  font-size:var(--text-xs);
+  color:var(--text-muted);
+  transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink:0;
+  width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:4px;
+  background:var(--bg-overlay);
+}
+.accordion.open .accordion-icon{transform:rotate(180deg);background:var(--accent-dim);color:var(--accent)}
+
+.accordion-body{
+  max-height:0;
+  overflow:hidden;
+  background:var(--bg-elevated);
+  transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+  border-top:1px solid transparent;
+}
+.accordion.open .accordion-body{
+  max-height:1200px;
+  border-top-color:var(--border);
+}
+.accordion-body-inner{padding:var(--sp2)}
+
+/* ═══════════════════════════════════════════
+   QUIZ
+═══════════════════════════════════════════ */
+.quiz-container{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:var(--sp2);
+  margin:var(--sp2) 0;
+  position:relative;
+  overflow:hidden;
+}
+.quiz-container::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--violet),var(--accent));
+}
+.quiz-question{
+  font-size:var(--text-sm);
+  font-weight:600;
+  color:var(--text-primary);
+  margin-bottom:var(--sp2);
+  line-height:1.5;
+}
+.quiz-options{display:flex;flex-direction:column;gap:8px}
+.quiz-option{
+  background:var(--bg-elevated);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px var(--sp2);
+  font-size:var(--text-sm);
+  color:var(--text-secondary);
+  cursor:pointer;
+  text-align:left;
+  min-height:44px;
+  display:flex;align-items:center;gap:10px;
+  transition:border-color 0.15s,background 0.15s,color 0.15s,transform 0.15s;
+  position:relative;
+  overflow:hidden;
+}
+.quiz-option::before{
+  content:'';
+  width:6px;height:6px;
+  border-radius:50%;
+  border:1.5px solid var(--text-muted);
+  flex-shrink:0;
+  transition:border-color 0.15s,background 0.15s;
+}
+.quiz-option:hover:not(:disabled){
+  border-color:var(--border-accent);
+  background:var(--accent-dim);
+  color:var(--text-primary);
+  transform:translateX(3px);
+}
+.quiz-option:hover:not(:disabled)::before{border-color:var(--accent)}
+.quiz-option.correct{border-color:rgba(16,185,129,0.5);background:var(--green-dim);color:var(--green)}
+.quiz-option.correct::before{background:var(--green);border-color:var(--green)}
+.quiz-option.wrong{border-color:rgba(244,63,94,0.5);background:var(--rose-dim);color:var(--rose)}
+.quiz-option.wrong::before{background:var(--rose);border-color:var(--rose)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.quiz-option.shake{animation:shake 0.4s ease}
+
+.quiz-feedback{
+  margin-top:var(--sp1);
+  padding:10px var(--sp2);
+  border-radius:8px;
+  font-size:var(--text-sm);
+  display:none;
+  line-height:1.5;
+  animation:fadeSlide 0.25s ease;
+}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct-fb{background:var(--green-dim);color:var(--green);border:1px solid rgba(16,185,129,0.25)}
+.quiz-feedback.wrong-fb{background:var(--rose-dim);color:var(--rose);border:1px solid rgba(244,63,94,0.2)}
+
+/* ═══════════════════════════════════════════
+   BADGES & TAGS
+═══════════════════════════════════════════ */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--font-mono);
+  font-size:var(--text-xs);font-weight:600;
+  padding:3px 8px;border-radius:100px;
+  letter-spacing:0.05em;
+  border:1px solid;
+}
+.badge-blue{color:var(--accent);border-color:rgba(0,212,255,0.3);background:var(--accent-dim)}
+.badge-green{color:var(--green);border-color:rgba(16,185,129,0.3);background:var(--green-dim)}
+.badge-gold{color:var(--gold);border-color:rgba(245,158,11,0.3);background:var(--gold-dim)}
+.badge-rose{color:var(--rose);border-color:rgba(244,63,94,0.3);background:var(--rose-dim)}
+.badge-violet{color:var(--violet);border-color:rgba(129,140,248,0.3);background:var(--violet-dim)}
+
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:var(--sp1) 0}
+.tag{
+  font-family:var(--font-mono);
+  font-size:var(--text-xs);
+  background:var(--bg-overlay);
+  border:1px solid var(--border);
+  border-radius:5px;padding:2px 7px;
+  color:var(--text-muted);
+  letter-spacing:0.04em;
+}
+
+/* ═══════════════════════════════════════════
+   LOG GRID
+═══════════════════════════════════════════ */
+.log-grid{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  font-family:var(--font-mono);
+  font-size:var(--text-xs);
+}
+.log-row{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+}
+.log-row:nth-child(odd){background:var(--bg-card)}
+.log-row:nth-child(even){background:var(--bg-elevated)}
+.log-row:not(:last-child){border-bottom:1px solid var(--border)}
+.log-ts{padding:8px var(--sp1);color:var(--text-muted);white-space:nowrap}
+.log-msg{padding:8px;color:var(--text-secondary);line-height:1.4}
+.log-sev{padding:8px var(--sp1);text-align:right}
+
+/* ═══════════════════════════════════════════
+   INFO PANELS
+═══════════════════════════════════════════ */
+.info-panel,.warn-panel,.tip-panel{
+  border-radius:0 8px 8px 0;
+  padding:10px var(--sp2);
+  margin:var(--sp1) 0;
+  font-size:var(--text-sm);
+  line-height:1.6;
+  border-left-width:3px;
+  border-left-style:solid;
+}
+.info-panel{border-color:var(--accent);background:var(--accent-dim);color:var(--text-secondary)}
+.warn-panel{border-color:var(--gold);background:var(--gold-dim);color:var(--text-secondary)}
+.tip-panel{border-color:var(--green);background:var(--green-dim);color:var(--text-secondary)}
+
+/* ═══════════════════════════════════════════
+   GLOSSARY POPUP
+═══════════════════════════════════════════ */
+.glossary-term{
+  border-bottom:1px dashed var(--accent);
+  cursor:pointer;
+  color:var(--accent);
+  transition:opacity 0.15s;
+}
+.glossary-term:hover{opacity:0.8}
+#glossary-popup{
+  position:fixed;
+  bottom:calc(var(--nav-h) + var(--sp2));
+  left:var(--sp2);right:var(--sp2);
+  background:var(--bg-card);
+  border:1px solid var(--border-accent);
+  border-radius:var(--radius-lg);
+  padding:var(--sp2);
+  z-index:200;
+  box-shadow:var(--shadow-lg),var(--glow-accent);
+  display:none;
+  animation:popupIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popupIn{
+  from{transform:translateY(12px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+#glossary-popup.open{display:block}
+#glossary-term-title{
+  font-family:var(--font-mono);font-size:var(--text-sm);
+  font-weight:600;color:var(--accent);margin-bottom:6px;
+  padding-right:var(--sp4);
+}
+#glossary-term-def{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6}
+#close-glossary{
+  position:absolute;top:var(--sp1);right:var(--sp1);
+  background:var(--bg-overlay);border:1px solid var(--border);
+  color:var(--text-muted);border-radius:6px;
+  width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:13px;
+  transition:background 0.15s,color 0.15s;
+  min-height:unset;
+}
+#close-glossary:hover{background:var(--rose-dim);color:var(--rose);border-color:rgba(244,63,94,0.3)}
+
+/* ═══════════════════════════════════════════
+   FORMS
+═══════════════════════════════════════════ */
+.field-label{
+  display:block;font-size:var(--text-xs);font-weight:600;
+  color:var(--text-muted);text-transform:uppercase;
+  letter-spacing:0.07em;margin-bottom:5px;
+}
+.select-wrap{position:relative}
+.select-wrap::after{
+  content:'▾';position:absolute;right:12px;top:50%;
+  transform:translateY(-50%);color:var(--text-muted);
+  pointer-events:none;font-size:12px;
+}
+select{
+  width:100%;background:var(--bg-elevated);
+  border:1px solid var(--border-md);border-radius:8px;
+  padding:10px 36px 10px 12px;
+  font-size:var(--text-sm);color:var(--text-primary);
+  font-family:var(--font-ui);appearance:none;-webkit-appearance:none;
+  cursor:pointer;min-height:44px;
+  transition:border-color 0.15s,box-shadow 0.15s;
+}
+select:focus{border-color:var(--accent);box-shadow:var(--focus-ring);outline:none}
+select option{background:var(--bg-surface)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:var(--sp1);font-size:var(--text-sm);font-weight:600;
+  border-radius:8px;padding:10px var(--sp2);cursor:pointer;
+  min-height:44px;letter-spacing:0.02em;
+  transition:opacity 0.15s,transform 0.15s,box-shadow 0.15s;
+  border:none;
+}
+.btn:active{transform:scale(0.97)}
+.btn-primary{
+  background:var(--accent);color:var(--bg-base);
+  box-shadow:0 0 0 0 var(--accent-glow);
+}
+.btn-primary:hover{opacity:0.9;box-shadow:0 0 20px var(--accent-glow)}
+[data-theme="light"] .btn-primary{color:#fff}
+.btn-secondary{
+  background:var(--bg-elevated);color:var(--text-primary);
+  border:1px solid var(--border-md);
+}
+.btn-secondary:hover{border-color:var(--border-accent);color:var(--accent)}
+
+/* ═══════════════════════════════════════════
+   SCENARIO BOX
+═══════════════════════════════════════════ */
+.scenario-box{
+  background:var(--bg-surface);
+  border:1px solid rgba(0,212,255,0.2);
+  border-radius:var(--radius-lg);
+  padding:var(--sp2);
+  margin-bottom:var(--sp2);
+  position:relative;
+  overflow:hidden;
+}
+.scenario-box::before{
+  content:'';
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 23px,rgba(0,212,255,0.02) 23px,rgba(0,212,255,0.02) 24px);
+  pointer-events:none;
+}
+.scenario-label{
+  font-family:var(--font-mono);font-size:var(--text-xs);
+  color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;
+  margin-bottom:var(--sp1);display:flex;align-items:center;gap:6px;
+}
+.scenario-label::after{
+  content:'█';font-size:10px;
+  animation:cursor-blink 1.2s step-start infinite;
+  opacity:0.8;
+}
+@keyframes cursor-blink{0%,100%{opacity:0}50%{opacity:1}}
+.scenario-text{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.7;position:relative}
+
+/* ═══════════════════════════════════════════
+   SECTION HEADER
+═══════════════════════════════════════════ */
+.section-hdr{
+  display:flex;align-items:center;gap:var(--sp1);
+  margin-bottom:var(--sp2);padding-bottom:var(--sp1);
+  border-bottom:1px solid var(--border);
+}
+.section-hdr-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--accent-dim);border:1px solid var(--border-accent);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.section-hdr-text{font-size:var(--text-base);font-weight:700;color:var(--text-primary)}
+
+/* ═══════════════════════════════════════════
+   BODY COPY
+═══════════════════════════════════════════ */
+p.body-text{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.7;margin-bottom:var(--sp1)}
+h3.sub-heading{font-size:var(--text-sm);font-weight:700;color:var(--text-primary);margin:var(--sp2) 0 var(--sp1);text-transform:uppercase;letter-spacing:0.05em;font-size:var(--text-xs)}
+ul.bullet-list{padding-left:var(--sp2);margin-bottom:var(--sp1)}
+ul.bullet-list li{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;margin-bottom:5px;list-style:none;position:relative;padding-left:var(--sp1)}
+ul.bullet-list li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
+
+/* ═══════════════════════════════════════════
+   COMPLETION TOGGLE
+═══════════════════════════════════════════ */
+.completion-row{
+  display:flex;align-items:center;gap:var(--sp1);
+  margin:var(--sp2) 0;padding:var(--sp1) var(--sp2);
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);
+}
+.check-btn{
+  width:44px;height:44px;border-radius:50%;
+  border:2px solid var(--border-md);background:none;
+  font-size:18px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink:0;color:transparent;
+}
+.check-btn:hover{border-color:var(--green);transform:scale(1.1)}
+.check-btn.done{
+  border-color:var(--green);background:var(--green-dim);
+  color:var(--green);
+  box-shadow:0 0 12px rgba(16,185,129,0.3);
+}
+@keyframes checkPop{0%{transform:scale(0.8)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.check-btn.pop{animation:checkPop 0.3s ease}
+.check-label{font-size:var(--text-sm);color:var(--text-secondary)}
+
+/* ═══════════════════════════════════════════
+   INTERVIEW CARDS
+═══════════════════════════════════════════ */
+.interview-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:var(--sp2);
+  margin-bottom:var(--sp2);
+  transition:border-color 0.2s,transform 0.2s;
+}
+.interview-card:hover{border-color:var(--border-md);transform:translateY(-1px)}
+.interview-q{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin:var(--sp1) 0;line-height:1.5}
+.interview-a{
+  font-size:var(--text-sm);color:var(--text-secondary);line-height:1.7;
+  border-top:1px solid var(--border);padding-top:var(--sp1);
+  max-height:0;overflow:hidden;
+  transition:max-height 0.35s ease,padding-top 0.2s;
+}
+.interview-a.show{max-height:800px;padding-top:var(--sp1)}
+.toggle-answer{
+  font-size:var(--text-xs);font-family:var(--font-mono);
+  color:var(--accent);background:none;border:none;cursor:pointer;
+  padding:4px 0;min-height:36px;display:flex;align-items:center;gap:4px;
+  letter-spacing:0.04em;font-weight:600;
+  transition:opacity 0.15s;
+}
+.toggle-answer:hover{opacity:0.8}
+
+/* ═══════════════════════════════════════════
+   COMPETENCY MATRIX
+═══════════════════════════════════════════ */
+.matrix-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:var(--sp1);
+  margin:var(--sp1) 0;
+}
+@media(min-width:480px){.matrix-grid{grid-template-columns:repeat(4,1fr)}}
+.matrix-cell{
+  background:var(--bg-elevated);border:1px solid var(--border);
+  border-radius:var(--radius);padding:var(--sp1);
+  transition:border-color 0.2s;
+}
+.matrix-cell-label{font-size:var(--text-xs);color:var(--text-muted);margin-bottom:6px;font-weight:600;letter-spacing:0.04em}
+.matrix-bar-wrap{height:4px;background:var(--bg-overlay);border-radius:100px;margin-bottom:4px}
+.matrix-bar{height:100%;border-radius:100px;transition:width 0.5s cubic-bezier(0.34,1.56,0.64,1)}
+.matrix-score-lbl{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted)}
+
+/* ═══════════════════════════════════════════
+   DIVIDER
+═══════════════════════════════════════════ */
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border-md),transparent);
+  margin:var(--sp2) 0;
+}
+
+/* ═══════════════════════════════════════════
+   PRINT
+═══════════════════════════════════════════ */
+@media print{
+  #app-header,#bottom-nav,#offline-bar,#glossary-popup{display:none!important}
+  #main-content{padding:0}
+  .page{display:block!important;page-break-after:always}
+  .accordion-body{max-height:none!important;display:block}
+  .accordion-body-inner{padding:var(--sp1)}
+}
+</style>
+</head>
+<body>
+<div id="app" style="display:flex;flex-direction:column;min-height:100vh">
+
+  <div id="offline-bar" role="alert">⚡ OFFLINE MODE – Cached content available</div>
+
+  <!-- HEADER -->
+  <header id="app-header" role="banner">
+    <div id="header-wordmark">
+      <span class="hw-badge">AE·II</span>
+      <span id="current-page-title">Overview</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">☀</button>
+      <button class="icon-btn" id="print-btn" aria-label="Print">⎙</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content" role="main">
+
+    <!-- ▸ DASHBOARD -->
+    <section class="page active" id="page-dashboard" aria-label="Dashboard">
+      <h1 class="page-title">Automation Engineer II</h1>
+      <p class="page-subtitle">// PROFESSIONAL LEARNING GUIDE · GMP REGULATED ENVIRONMENTS</p>
+
+      <div id="dashboard-stats">
+        <div class="stat-card s-blue"><div class="stat-value" id="stat-completed">0</div><div class="stat-label">Completed</div></div>
+        <div class="stat-card s-gold"><div class="stat-value" id="stat-total">12</div><div class="stat-label">Modules</div></div>
+        <div class="stat-card s-green"><div class="stat-value" id="stat-score">0%</div><div class="stat-label">Mastery</div></div>
+        <div class="stat-card s-violet"><div class="stat-value" id="stat-quizzes">0</div><div class="stat-label">Quizzes</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-meta">Overall Progress</div>
+        <div class="progress-wrap"><div class="progress-bar" id="overall-progress" style="width:0%"></div></div>
+        <p style="font-size:var(--text-xs);color:var(--text-muted);margin-top:4px" id="progress-label">0 of 12 modules initiated</p>
+      </div>
+
+      <div class="section-hdr">
+        <div class="section-hdr-icon">📚</div>
+        <div class="section-hdr-text">Learning Modules</div>
+      </div>
+      <div class="module-list" id="module-list" role="list"></div>
+    </section>
+
+    <!-- ▸ ROLE OVERVIEW -->
+    <section class="page" id="page-role" aria-label="Role Overview">
+      <h1 class="page-title">Role Overview</h1>
+      <p class="page-subtitle">// AUTOMATION ENGINEER II · SCOPE & EXPECTATIONS</p>
+
+      <div class="card">
+        <div class="card-meta">Role Definition</div>
+        <div class="card-title">Automation Engineer II</div>
+        <p class="body-text">An Automation Engineer II operates independently within regulated manufacturing ecosystems, driving automation strategy, maintaining complex control systems, and ensuring compliance across 24/7 production environments. This role bridges technical execution and cross-functional leadership.</p>
+        <div class="tag-row">
+          <span class="tag">PLC/DCS</span><span class="tag">GMP</span><span class="tag">SCADA</span>
+          <span class="tag">CSV</span><span class="tag">MES</span><span class="tag">21 CFR 11</span>
+        </div>
+      </div>
+
+      <div class="accordion" id="acc-role-1">
+        <button class="accordion-header" aria-expanded="false">Core Responsibilities <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li>Design, implement, and maintain automated control systems for regulated manufacturing processes</li>
+            <li>Execute commissioning, qualification, and validation activities (IQ/OQ/PQ)</li>
+            <li>Author and review technical documentation: URS, FS, DS, SOP, validation protocols</li>
+            <li>Support deviation investigations and CAPA closure related to automation systems</li>
+            <li>Interface with QA, Manufacturing, and IT on automation change control</li>
+            <li>Maintain data integrity across automated systems per 21 CFR Part 11 requirements</li>
+            <li>Provide 24/7 on-call support for critical production systems</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-role-2">
+        <button class="accordion-header" aria-expanded="false">Technical Competency Profile <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <h3 class="sub-heading">Core Technical Skills</h3>
+          <ul class="bullet-list">
+            <li>PLC programming: Ladder logic, FBD, Structured Text (IEC 61131-3)</li>
+            <li>DCS system architecture and configuration (DeltaV, Honeywell PKS, ABB 800xA)</li>
+            <li>HMI/SCADA development and maintenance</li>
+            <li>Instrumentation: P&IDs, calibration, HART / Foundation Fieldbus / Profibus</li>
+            <li>Network fundamentals for industrial automation (OT/IT convergence)</li>
+          </ul>
+          <h3 class="sub-heading">Compliance & Regulatory</h3>
+          <ul class="bullet-list">
+            <li>GAMP 5 lifecycle methodology</li>
+            <li>21 CFR Part 11 electronic records and signatures</li>
+            <li>EU Annex 11 alignment</li>
+            <li>Computer Systems Validation (CSV) lifecycle</li>
+            <li>GxP documentation standards</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-role-3">
+        <button class="accordion-header" aria-expanded="false">Industry Context: Regulated Manufacturing <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">Regulated manufacturing environments—pharmaceutical, biotech, medical device—impose rigorous standards on how automated systems are designed, validated, and maintained. The Automation Engineer II must internalize GMP culture: every action is documented, every change is controlled, every failure is investigated.</p>
+          <div class="info-panel"><strong>Key Regulatory Bodies:</strong> FDA (USA), EMA (EU), PMDA (Japan), Health Canada. Understanding the intersection of automation and regulatory expectations is non-negotiable in this role.</div>
+          <div class="warn-panel"><strong>Compliance Note:</strong> In a GMP environment, an undocumented change is effectively an unauthorized change. Change control is not bureaucracy — it is risk management.</div>
+        </div></div>
+      </div>
+
+      <div class="quiz-container">
+        <div class="card-meta">Knowledge Check · Role Overview</div>
+        <div class="quiz-question">Q: Which document standard governs Computer Systems Validation methodology in pharmaceutical automation?</div>
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-role-1')">ISO 9001</button>
+          <button class="quiz-option" data-correct="true" onclick="handleQuiz(this,'q-role-1')">GAMP 5</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-role-1')">IEC 61511</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-role-1')">IEEE 802.11</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-role-1"></div>
+      </div>
+
+      <div class="completion-row">
+        <button class="check-btn" id="chk-role" onclick="markComplete('role',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Role Overview as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ INFRASTRUCTURE -->
+    <section class="page" id="page-infra" aria-label="Automation Infrastructure">
+      <h1 class="page-title">Automation Infrastructure</h1>
+      <p class="page-subtitle">// DCS · PLC · BAS · SCADA · NETWORK ARCHITECTURE</p>
+
+      <div class="accordion" id="acc-infra-1">
+        <button class="accordion-header" aria-expanded="false">DCS Architecture Deep Dive <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">A <span class="glossary-term" onclick="showGlossary('DCS')">Distributed Control System (DCS)</span> distributes control logic across multiple field controllers communicating via a proprietary or standard network bus. Unlike PLCs, DCS systems are purpose-built for continuous process control with inherent redundancy.</p>
+          <h3 class="sub-heading">Architecture Layers</h3>
+          <ul class="bullet-list">
+            <li><strong>Field Level:</strong> Sensors, actuators, transmitters, field instruments</li>
+            <li><strong>Controller Level:</strong> Distributed process controllers (redundant pairs for critical processes)</li>
+            <li><strong>Communication Level:</strong> HART, Foundation Fieldbus, Industrial Ethernet</li>
+            <li><strong>Supervision Level:</strong> Operator workstations, engineering stations, DCS historian</li>
+            <li><strong>Enterprise Level:</strong> MES integration, enterprise historian, ERP interfaces</li>
+          </ul>
+          <div class="info-panel"><strong>Common DCS Platforms:</strong> Emerson DeltaV, Honeywell Experion PKS, ABB 800xA, Yokogawa CENTUM VP, Siemens PCS 7.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-infra-2">
+        <button class="accordion-header" aria-expanded="false">PLC Systems in Manufacturing <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text"><span class="glossary-term" onclick="showGlossary('PLC')">PLCs</span> excel at discrete control, sequential logic, and high-speed machine automation. In regulated environments, PLC software is a GxP-impacting computerized system requiring CSV.</p>
+          <h3 class="sub-heading">IEC 61131-3 Languages</h3>
+          <ul class="bullet-list">
+            <li><strong>Ladder Diagram (LD):</strong> Relay-logic based; most common; ideal for discrete I/O</li>
+            <li><strong>Function Block Diagram (FBD):</strong> Graphical blocks; suited for continuous control</li>
+            <li><strong>Structured Text (ST):</strong> Pascal-like text; best for complex algorithms</li>
+            <li><strong>Sequential Function Chart (SFC):</strong> State-machine representation for sequential processes</li>
+          </ul>
+          <div class="tip-panel"><strong>Field Tip:</strong> PLC code changes must go through change control before deployment. Maintain version-controlled backups. "Latest version on the PLC" is a compliance risk.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-infra-3">
+        <button class="accordion-header" aria-expanded="false">HMI/SCADA Systems <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text"><span class="glossary-term" onclick="showGlossary('SCADA')">SCADA</span> systems are subject to 21 CFR Part 11 when they create, modify, maintain, archive, retrieve, or transmit GxP records.</p>
+          <ul class="bullet-list">
+            <li>User authentication and role-based access control (RBAC)</li>
+            <li>Audit trail: time-stamped record of all user actions and system events</li>
+            <li>Electronic signature requirements for critical operations</li>
+            <li>Alarm management per ISA-18.2</li>
+            <li>Historian integration for batch record completeness</li>
+          </ul>
+          <div class="warn-panel"><strong>21 CFR Part 11 Trigger:</strong> If HMI replaces a paper record as the GxP record of truth, it must comply with Part 11. Frequent gap finding in regulatory inspections.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-infra-4">
+        <button class="accordion-header" aria-expanded="false">Industrial Network Architecture (Purdue Model) <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">OT/IT network convergence introduces cybersecurity risks to automation systems. The Purdue Model (ISA-95) defines network segmentation zones from field devices to enterprise systems.</p>
+          <ul class="bullet-list">
+            <li>Level 0–1: Field devices, controllers (isolated OT network)</li>
+            <li>Level 2: Supervisory control (SCADA, DCS HMI)</li>
+            <li>Level 3: Site operations, MES (demilitarized zone recommended)</li>
+            <li>Level 4–5: Enterprise network, cloud integration</li>
+          </ul>
+          <div class="info-panel">Network segmentation using industrial DMZ (iDMZ) and unidirectional data diodes protects critical control systems from enterprise network threats.</div>
+        </div></div>
+      </div>
+
+      <div class="quiz-container">
+        <div class="card-meta">Knowledge Check · Infrastructure</div>
+        <div class="quiz-question">Q: In the Purdue Model (ISA-95), at which level does MES typically reside?</div>
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-infra-1')">Level 0–1</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-infra-1')">Level 2</button>
+          <button class="quiz-option" data-correct="true" onclick="handleQuiz(this,'q-infra-1')">Level 3</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-infra-1')">Level 5</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-infra-1"></div>
+      </div>
+      <div class="completion-row">
+        <button class="check-btn" id="chk-infra" onclick="markComplete('infra',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Infrastructure as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ CONTROL SYSTEMS -->
+    <section class="page" id="page-control" aria-label="Control Systems">
+      <h1 class="page-title">Control Systems</h1>
+      <p class="page-subtitle">// PID · LOOP TUNING · ALARMS · DATA HISTORIAN</p>
+
+      <div class="accordion" id="acc-ctrl-1">
+        <button class="accordion-header" aria-expanded="false">PID Control Fundamentals <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">The <span class="glossary-term" onclick="showGlossary('PID')">PID controller</span> remains the foundational building block of process control. Understanding its three terms and their interaction is essential.</p>
+          <ul class="bullet-list">
+            <li><strong>Proportional (P):</strong> Responds to current error magnitude; increasing Kp reduces steady-state error but risks oscillation</li>
+            <li><strong>Integral (I):</strong> Eliminates steady-state offset by accumulating error over time; excessive I causes integrator windup</li>
+            <li><strong>Derivative (D):</strong> Responds to rate of change; improves stability but amplifies noise; often disabled in noisy processes</li>
+          </ul>
+          <div class="info-panel"><strong>Lambda Tuning:</strong> In pharmaceutical batch processes, model-based Lambda tuning provides predictable closed-loop response time appropriate for the process dynamics.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-ctrl-2">
+        <button class="accordion-header" aria-expanded="false">Advanced Control Strategies <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>Cascade Control:</strong> Inner loop controls fast variable; outer loop sets secondary setpoint — used for temperature/jacket control</li>
+            <li><strong>Ratio Control:</strong> Maintains proportional flow rates for blending operations</li>
+            <li><strong>Feedforward Control:</strong> Compensates for measurable disturbances before they affect the process</li>
+            <li><strong>Split-Range Control:</strong> Single controller output drives two actuators (heating and cooling valves)</li>
+            <li><strong>Model Predictive Control (MPC):</strong> Multi-variable predictive controller using process model; handles constraints explicitly</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-ctrl-3">
+        <button class="accordion-header" aria-expanded="false">Alarm Management (ISA-18.2) <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">ISA-18.2 / IEC 62682 defines lifecycle practices for alarm management. Poor alarm management is cited in major incidents and frequent FDA inspection findings.</p>
+          <ul class="bullet-list">
+            <li>Alarm rationalization: every alarm must have defined cause, consequence, and operator response</li>
+            <li>Alarm prioritization: Critical / High / Medium / Low based on consequence and response time</li>
+            <li>Alarm flooding: more than 10 alarms/10 min indicates systemic design issue</li>
+            <li>Nuisance alarms: chattering, fleeting, stale alarms reduce operator effectiveness</li>
+            <li>KPIs: Average alarm rate, most frequent alarms, alarm shelving rate</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-ctrl-4">
+        <button class="accordion-header" aria-expanded="false">Data Historian & Process Data Management <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">A <span class="glossary-term" onclick="showGlossary('Historian')">process data historian</span> stores time-series process data at high frequency. In regulated environments, historian data may constitute part of the electronic batch record.</p>
+          <ul class="bullet-list">
+            <li>Compression: exception-based and swinging door algorithms reduce storage needs</li>
+            <li>Data integrity: historian must protect data from alteration (21 CFR Part 11)</li>
+            <li>Context: raw historian data must correlate with batch production records</li>
+            <li>Golden batch analysis: use historian to define optimal process signatures</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="quiz-container">
+        <div class="card-meta">Knowledge Check · Control Systems</div>
+        <div class="quiz-question">Q: In cascade control, which loop receives the PV measurement from the field instrument?</div>
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-ctrl-1')">Outer (primary) loop</button>
+          <button class="quiz-option" data-correct="true" onclick="handleQuiz(this,'q-ctrl-1')">Inner (secondary) loop</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-ctrl-1')">Feedforward loop</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-ctrl-1')">Master supervisor loop</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-ctrl-1"></div>
+      </div>
+      <div class="completion-row">
+        <button class="check-btn" id="chk-control" onclick="markComplete('control',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Control Systems as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ CSV & COMPLIANCE -->
+    <section class="page" id="page-csv" aria-label="CSV and Regulatory Compliance">
+      <h1 class="page-title">CSV & Regulatory</h1>
+      <p class="page-subtitle">// 21 CFR PART 11 · GAMP 5 · GxP · DATA INTEGRITY</p>
+
+      <div class="scenario-box">
+        <div class="scenario-label">Scenario</div>
+        <div class="scenario-text">Your site is implementing a new automated environmental monitoring system (EMS). The system will generate electronic records replacing paper logs. QA flags it as a GxP system. Walk through the required validation approach.</div>
+      </div>
+
+      <div class="accordion" id="acc-csv-1">
+        <button class="accordion-header" aria-expanded="false">21 CFR Part 11 – Electronic Records & Signatures <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">21 CFR Part 11 applies to electronic records created, modified, maintained, archived, retrieved, or transmitted under FDA regulations when used as equivalent to paper records.</p>
+          <h3 class="sub-heading">System Requirements</h3>
+          <ul class="bullet-list">
+            <li>Unique user IDs and secure password management with complexity/expiry policies</li>
+            <li>Audit trail: time-stamped, user-attributed, unalterable record of all GxP-relevant actions</li>
+            <li>Operational system checks to enforce permissible sequencing of events</li>
+            <li>Authority checks ensuring only authorized users take GxP actions</li>
+          </ul>
+          <h3 class="sub-heading">Electronic Signature Requirements</h3>
+          <ul class="bullet-list">
+            <li>Uniquely linked to signatory; not reused by anyone else</li>
+            <li>Must include: printed name, date/time, meaning of signature</li>
+            <li>Two distinct identification components required (user ID + password)</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-csv-2">
+        <button class="accordion-header" aria-expanded="false">GAMP 5 – System Classification <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">GAMP 5 provides a risk-based approach to CSV. Systems are categorized by software type to scale validation effort appropriately.</p>
+          <div class="log-grid">
+            <div class="log-row"><div class="log-ts">Cat 1</div><div class="log-msg">Infrastructure software (OS, databases) — inventory and version control</div><div class="log-sev"><span class="badge badge-green">LOW</span></div></div>
+            <div class="log-row"><div class="log-ts">Cat 3</div><div class="log-msg">Non-configured products (fixed firmware) — supplier assessment + IQ/OQ</div><div class="log-sev"><span class="badge badge-blue">MED</span></div></div>
+            <div class="log-row"><div class="log-ts">Cat 4</div><div class="log-msg">Configured software (DCS, SCADA, LIMS) — configuration specs + IQ/OQ/PQ</div><div class="log-sev"><span class="badge badge-gold">HIGH</span></div></div>
+            <div class="log-row"><div class="log-ts">Cat 5</div><div class="log-msg">Custom/bespoke software — full SDLC + IQ/OQ/PQ + code review</div><div class="log-sev"><span class="badge badge-rose">FULL</span></div></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-csv-3">
+        <button class="accordion-header" aria-expanded="false">CSV Lifecycle – Validation Documents <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>Validation Plan (VP):</strong> Defines scope, strategy, team, and schedule</li>
+            <li><strong>User Requirements Specification (URS):</strong> What the system must do from user perspective</li>
+            <li><strong>Functional Specification (FS):</strong> How the system satisfies the URS</li>
+            <li><strong>Installation Qualification (IQ):</strong> System installed per design specifications</li>
+            <li><strong>Operational Qualification (OQ):</strong> System functions within defined operating parameters</li>
+            <li><strong>Performance Qualification (PQ):</strong> System performs reliably under production conditions</li>
+            <li><strong>Validation Summary Report (VSR):</strong> Summarizes results, residual risks, release decision</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-csv-4">
+        <button class="accordion-header" aria-expanded="false">Data Integrity – ALCOA+ Framework <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">Data integrity is a foundational GMP requirement. ALCOA+ defines attributes that all GxP data must possess.</p>
+          <ul class="bullet-list">
+            <li><strong>A – Attributable:</strong> Who performed the action and when</li>
+            <li><strong>L – Legible:</strong> Permanent and readable</li>
+            <li><strong>C – Contemporaneous:</strong> Recorded at time of activity</li>
+            <li><strong>O – Original:</strong> First capture or certified copy</li>
+            <li><strong>A – Accurate:</strong> Truthful and complete</li>
+            <li><strong>+ Complete, Consistent, Enduring, Available</strong></li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="quiz-container">
+        <div class="card-meta">Knowledge Check · CSV & Compliance</div>
+        <div class="quiz-question">Q: A configured SCADA system replacing paper batch records in a GMP facility falls under which GAMP 5 category?</div>
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-csv-1')">Category 1</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-csv-1')">Category 3</button>
+          <button class="quiz-option" data-correct="true" onclick="handleQuiz(this,'q-csv-1')">Category 4</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-csv-1')">Category 5</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-csv-1"></div>
+      </div>
+      <div class="completion-row">
+        <button class="check-btn" id="chk-csv" onclick="markComplete('csv',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark CSV & Regulatory as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ SOFTWARE LIFECYCLE -->
+    <section class="page" id="page-slc" aria-label="Software Lifecycle">
+      <h1 class="page-title">Software Lifecycle</h1>
+      <p class="page-subtitle">// SDLC · CHANGE CONTROL · COMMISSIONING · QUALIFICATION</p>
+
+      <div class="accordion" id="acc-slc-1">
+        <button class="accordion-header" aria-expanded="false">Automation SDLC – V-Model <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">The SDLC for GxP automation follows the V-model — each left-arm development document has a corresponding right-arm test protocol.</p>
+          <ul class="bullet-list">
+            <li>URS → PQ (user requirements tested at production scale)</li>
+            <li>FS → OQ (functional requirements tested operationally)</li>
+            <li>DS → IQ (design specifications verified at installation)</li>
+            <li>Code/Config → Unit Testing (module-level verification)</li>
+          </ul>
+          <div class="tip-panel">Traceability matrices link URS requirements to specific test scripts. Gaps in traceability are FDA 483 observations.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-slc-2">
+        <button class="accordion-header" aria-expanded="false">Change Control Process <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>Initiation:</strong> Description, justification, impacted systems</li>
+            <li><strong>Impact Assessment:</strong> GxP impact? Validation impact? CSV category affected?</li>
+            <li><strong>Cross-functional review:</strong> QA, Engineering, Manufacturing review and approval</li>
+            <li><strong>Implementation:</strong> Following approved change plan</li>
+            <li><strong>Verification:</strong> Retesting per impact (full or partial requalification)</li>
+            <li><strong>Documentation update:</strong> SOPs, validation documents, drawings revised</li>
+            <li><strong>Closure:</strong> QA confirmation, training completion</li>
+          </ul>
+          <div class="warn-panel"><strong>Common Error:</strong> Making a "minor" change without change control because it "seems low risk." Risk assessment must be documented — the engineer cannot self-authorize GxP changes.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-slc-3">
+        <button class="accordion-header" aria-expanded="false">Commissioning & Qualification Lifecycle <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>Design Review (DR):</strong> Engineering review of design documents against URS</li>
+            <li><strong>Factory Acceptance Test (FAT):</strong> System tested at vendor site before delivery</li>
+            <li><strong>Site Acceptance Test (SAT):</strong> Verified at installation site</li>
+            <li><strong>Commissioning:</strong> Engineering verification that system meets design intent</li>
+            <li><strong>IQ / OQ / PQ:</strong> GxP formal qualification lifecycle</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="quiz-container">
+        <div class="card-meta">Knowledge Check · Software Lifecycle</div>
+        <div class="quiz-question">Q: In the V-model, the Performance Qualification (PQ) corresponds to which left-arm document?</div>
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-slc-1')">Design Specification (DS)</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-slc-1')">Functional Specification (FS)</button>
+          <button class="quiz-option" data-correct="true" onclick="handleQuiz(this,'q-slc-1')">User Requirements Specification (URS)</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-slc-1')">Validation Plan (VP)</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-slc-1"></div>
+      </div>
+      <div class="completion-row">
+        <button class="check-btn" id="chk-slc" onclick="markComplete('slc',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Software Lifecycle as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ TROUBLESHOOTING -->
+    <section class="page" id="page-trouble" aria-label="Troubleshooting">
+      <h1 class="page-title">Troubleshooting</h1>
+      <p class="page-subtitle">// FAULT ANALYSIS · RCA · DIAGNOSTIC WORKFLOW</p>
+
+      <div class="scenario-box">
+        <div class="scenario-label">Live Scenario</div>
+        <div class="scenario-text">A bioreactor DCS loop alarm triggers at 02:30 during a critical batch. The agitation speed controller shows MANUAL mode. Temperature is rising. Product is at risk. You receive the on-call page. What is your systematic approach?</div>
+      </div>
+
+      <div class="accordion" id="acc-tr-1">
+        <button class="accordion-header" aria-expanded="false">Fault Analysis Systematic Workflow <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>1. Stabilize:</strong> Assess immediate product/patient risk; engage manual controls if needed</li>
+            <li><strong>2. Document:</strong> Record exact time, alarm text, process conditions at fault onset</li>
+            <li><strong>3. Isolate:</strong> Determine fault boundary — field device, controller, communication, or software?</li>
+            <li><strong>4. Diagnose:</strong> Systematic signal tracing from field to HMI</li>
+            <li><strong>5. Restore:</strong> Apply minimum change to restore function; test before returning to auto</li>
+            <li><strong>6. Investigate:</strong> Root cause analysis — do not close at "hardware failure"</li>
+            <li><strong>7. Prevent:</strong> Corrective action; consider systemic failure modes (FMEA)</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-tr-2">
+        <button class="accordion-header" aria-expanded="false">Root Cause Analysis Methods <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>5-Why Analysis:</strong> Iteratively ask "why?" to reach systemic root cause — not surface symptom</li>
+            <li><strong>Ishikawa (Fishbone) Diagram:</strong> Categorize causes: Man, Machine, Method, Material, Measurement, Environment</li>
+            <li><strong>Fault Tree Analysis (FTA):</strong> Top-down Boolean logic tree for complex failures</li>
+            <li><strong>FMEA:</strong> RPN = Severity × Occurrence × Detectability — proactive risk identification</li>
+          </ul>
+          <div class="info-panel"><strong>Depth:</strong> "Sensor failed" is not a complete RCA. "Sensor failed due to process fluid ingress caused by inadequate sealing spec in the procurement standard" approaches acceptable depth.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-tr-3">
+        <button class="accordion-header" aria-expanded="false">Common Automation Fault Categories <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <div class="log-grid">
+            <div class="log-row"><div class="log-ts">I/O</div><div class="log-msg">Signal failure, open circuit, short, grounding issue, noise/interference</div><div class="log-sev"><span class="badge badge-rose">HW</span></div></div>
+            <div class="log-row"><div class="log-ts">COMM</div><div class="log-msg">Network timeout, duplicate IP, cable fault, protocol mismatch, CRC errors</div><div class="log-sev"><span class="badge badge-gold">NET</span></div></div>
+            <div class="log-row"><div class="log-ts">SW</div><div class="log-msg">Logic error, setpoint out-of-range, scaling error, timer/counter overflow</div><div class="log-sev"><span class="badge badge-blue">CODE</span></div></div>
+            <div class="log-row"><div class="log-ts">INST</div><div class="log-msg">Calibration drift, plugged impulse lines, thermowell fouling, span error</div><div class="log-sev"><span class="badge badge-gold">MEAS</span></div></div>
+            <div class="log-row"><div class="log-ts">CTRL</div><div class="log-msg">Windup, oscillation, tuning drift after process change, mode conflicts</div><div class="log-sev"><span class="badge badge-blue">PID</span></div></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="quiz-container">
+        <div class="card-meta">Knowledge Check · Troubleshooting</div>
+        <div class="quiz-question">Q: Using 5-Why analysis, an agitator speed loop drops to 0 RPM. The immediate cause is a failed VFD. The next "why" should ask:</div>
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-tr-1')">Order a replacement VFD immediately</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-tr-1')">Document that the VFD failed</button>
+          <button class="quiz-option" data-correct="true" onclick="handleQuiz(this,'q-tr-1')">Why did the VFD fail?</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-tr-1')">Notify the batch team of product loss</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-tr-1"></div>
+      </div>
+      <div class="completion-row">
+        <button class="check-btn" id="chk-trouble" onclick="markComplete('trouble',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Troubleshooting as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ PROJECT MANAGEMENT -->
+    <section class="page" id="page-pm" aria-label="Project Management">
+      <h1 class="page-title">Project Management</h1>
+      <p class="page-subtitle">// SCHEDULING · RISK · CROSS-FUNCTIONAL LEADERSHIP</p>
+
+      <div class="accordion" id="acc-pm-1">
+        <button class="accordion-header" aria-expanded="false">Automation Project Lifecycle <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>Concept:</strong> URS development, feasibility study, technology selection</li>
+            <li><strong>Define:</strong> Scope baseline, WBS, schedule, budget, RACI matrix</li>
+            <li><strong>Design:</strong> Detailed engineering, vendor selection, procurement</li>
+            <li><strong>Build:</strong> FAT, procurement, staging</li>
+            <li><strong>Install:</strong> SAT, commissioning, punch list resolution</li>
+            <li><strong>Qualify:</strong> IQ/OQ/PQ execution, deviation management</li>
+            <li><strong>Close:</strong> VSR, training, handover to operations, lessons learned</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-pm-2">
+        <button class="accordion-header" aria-expanded="false">Risk Management in Automation Projects <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li>Technical risk: integration complexity, vendor capability, legacy system interfaces</li>
+            <li>Schedule risk: long-lead equipment, regulatory approval dependencies</li>
+            <li>Compliance risk: GxP impact underestimation, CSV scope creep</li>
+            <li>Operational risk: production impact during cutover, operator training gaps</li>
+          </ul>
+          <div class="info-panel">Risk registry: ID, description, likelihood, impact, owner, mitigation, residual risk. Reviewed at each project phase gate.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-pm-3">
+        <button class="accordion-header" aria-expanded="false">Cross-Functional Leadership <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li>Facilitating technical reviews with QA, Manufacturing, IT, and Regulatory Affairs</li>
+            <li>Translating automation requirements into language accessible to non-technical stakeholders</li>
+            <li>Managing vendor relationships: scope adherence, quality expectations, documentation</li>
+            <li>Escalation judgment: knowing when to self-solve vs. escalate</li>
+            <li>Influencing without authority: building credibility through technical accuracy</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="quiz-container">
+        <div class="card-meta">Knowledge Check · Project Management</div>
+        <div class="quiz-question">Q: Which document defines who is Responsible, Accountable, Consulted, and Informed for each project activity?</div>
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-pm-1')">WBS (Work Breakdown Structure)</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-pm-1')">Project Charter</button>
+          <button class="quiz-option" data-correct="true" onclick="handleQuiz(this,'q-pm-1')">RACI Matrix</button>
+          <button class="quiz-option" data-correct="false" onclick="handleQuiz(this,'q-pm-1')">Risk Register</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-pm-1"></div>
+      </div>
+      <div class="completion-row">
+        <button class="check-btn" id="chk-pm" onclick="markComplete('pm',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Project Management as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ GLOBAL COLLABORATION -->
+    <section class="page" id="page-collab" aria-label="Global Collaboration">
+      <h1 class="page-title">Global Collaboration</h1>
+      <p class="page-subtitle">// MULTI-SITE · COMMUNICATION · KNOWLEDGE TRANSFER</p>
+
+      <div class="accordion" id="acc-col-1">
+        <button class="accordion-header" aria-expanded="false">Multi-Site Automation Standards <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li>Global automation standard libraries: common function blocks, alarm strategies, HMI templates</li>
+            <li>Technology governance: site vs. global technology roadmap alignment</li>
+            <li>Localization challenges: language, regulatory framework, network infrastructure</li>
+            <li>Site-to-site knowledge transfer: commissioning support, expertise sharing</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-col-2">
+        <button class="accordion-header" aria-expanded="false">Technical Communication Standards <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li>Document writing: precision language; no ambiguity in GxP documents</li>
+            <li>Meeting facilitation: structured agenda, decision log, action items with owners</li>
+            <li>Status reporting: RAGB status with factual narrative — no narrative filler</li>
+            <li>Escalation communication: factual, concise, with proposed path forward</li>
+            <li>Cross-cultural awareness: adapt communication style, respect time zones</li>
+          </ul>
+          <div class="tip-panel"><strong>Writing Discipline:</strong> In GMP environments, write what you did — not what you intended to do. Every deviation and observation must be recorded accurately at time of occurrence.</div>
+        </div></div>
+      </div>
+
+      <div class="completion-row">
+        <button class="check-btn" id="chk-collab" onclick="markComplete('collab',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Global Collaboration as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ LEAN & OE -->
+    <section class="page" id="page-lean" aria-label="Lean and Operational Excellence">
+      <h1 class="page-title">Lean & Operational Excellence</h1>
+      <p class="page-subtitle">// OEE · KAIZEN · CONTINUOUS IMPROVEMENT · SPC</p>
+
+      <div class="accordion" id="acc-lean-1">
+        <button class="accordion-header" aria-expanded="false">Automation's Role in OEE Improvement <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text">Overall Equipment Effectiveness (OEE) = Availability × Performance × Quality. Automation directly impacts all three.</p>
+          <ul class="bullet-list">
+            <li><strong>Availability:</strong> Predictive maintenance via historian trends; automated fault detection</li>
+            <li><strong>Performance:</strong> Eliminating slow cycles through optimized recipes and setpoints</li>
+            <li><strong>Quality:</strong> SPC integration; automated OOS detection and rejection</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-lean-2">
+        <button class="accordion-header" aria-expanded="false">Kaizen & Continuous Improvement <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li>Identify automation opportunities during Gemba walks (observe at the source)</li>
+            <li>Eliminate manual data entry — replace with automated capture (ALCOA+)</li>
+            <li>Reduce operator intervention in routine operations (increase automation coverage)</li>
+            <li>Implement exception-based reporting — alert operators only when action is required</li>
+            <li>Digital twin development for process optimization without production disruption</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="completion-row">
+        <button class="check-btn" id="chk-lean" onclick="markComplete('lean',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Lean & OE as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ TOOLS -->
+    <section class="page" id="page-tools" aria-label="Tools and Digital Systems">
+      <h1 class="page-title">Tools & Digital Systems</h1>
+      <p class="page-subtitle">// MES · LIMS · CMMS · CYBERSECURITY</p>
+
+      <div class="accordion" id="acc-tools-1">
+        <button class="accordion-header" aria-expanded="false">MES Integration <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p class="body-text"><span class="glossary-term" onclick="showGlossary('MES')">MES</span> bridges ERP planning and shop-floor execution.</p>
+          <ul class="bullet-list">
+            <li>Electronic Batch Records (EBR): automated collection of process parameters</li>
+            <li>Recipe management: parametric recipes driven from MES to DCS</li>
+            <li>Material tracking: lot genealogy, weighing and dispensing integration</li>
+            <li>ISA-88 batch standard: recipe structure aligned with DCS batch execution</li>
+            <li>ISA-95 interface standard: MES-to-ERP data exchange</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-tools-2">
+        <button class="accordion-header" aria-expanded="false">ICS/OT Cybersecurity (IEC 62443) <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li>Defense in depth: multiple security layers (network, endpoint, application, physical)</li>
+            <li>Patch management for OT: testing requirements before deployment on live systems</li>
+            <li>Remote access security: jump server/bastion host architecture, MFA required</li>
+            <li>Portable media controls: USB whitelisting to prevent malware introduction</li>
+            <li>Incident response plan specific to OT environments</li>
+          </ul>
+          <div class="warn-panel"><strong>Risk:</strong> Legacy OT systems often run outdated OS (Windows XP). Network isolation and compensating controls are required where patching is not feasible.</div>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-tools-3">
+        <button class="accordion-header" aria-expanded="false">CMMS & Asset Management <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li>CMMS tracks preventive maintenance schedules for automation assets</li>
+            <li>Critical spare parts management for high-availability systems</li>
+            <li>MTBF analysis to drive maintenance strategy</li>
+            <li>Calibration management integration with instrument database</li>
+            <li>GxP CMMS validation requirements (GAMP 5 Category 4)</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="completion-row">
+        <button class="check-btn" id="chk-tools" onclick="markComplete('tools',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Tools & Digital Systems as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ CAREER -->
+    <section class="page" id="page-career" aria-label="Career Development">
+      <h1 class="page-title">Career Development</h1>
+      <p class="page-subtitle">// COMPETENCY MATRIX · GROWTH PATH · CERTIFICATIONS</p>
+
+      <div class="card">
+        <div class="card-meta">Self-Assessment Tool</div>
+        <div class="card-title">Competency Matrix</div>
+        <p class="body-text" style="margin-bottom:var(--sp2)">Rate your proficiency (1=Novice → 4=Expert). Results saved locally.</p>
+        <div id="comp-fields"></div>
+        <button class="btn btn-primary" onclick="saveCompetency()" style="width:100%;margin-top:var(--sp2)">Save Assessment</button>
+        <div class="divider"></div>
+        <div class="matrix-grid" id="competency-matrix"></div>
+      </div>
+
+      <div class="accordion" id="acc-career-1">
+        <button class="accordion-header" aria-expanded="false">Career Progression Path <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>AE I → AE II:</strong> Independent project ownership, CSV authorship, on-call readiness</li>
+            <li><strong>AE II → Senior AE:</strong> Technical leadership, global standards contribution, mentoring</li>
+            <li><strong>Senior AE → Principal/Lead:</strong> Architecture decisions, technology strategy, regulatory interface</li>
+            <li><strong>Technical Track vs. Management Track:</strong> Both are valid; align with personal strengths and org needs</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion" id="acc-career-2">
+        <button class="accordion-header" aria-expanded="false">Professional Certifications <span class="accordion-icon">▾</span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul class="bullet-list">
+            <li><strong>ISA CCST:</strong> Certified Control System Technician — recognized instrumentation/control credential</li>
+            <li><strong>ISA CAP:</strong> Certified Automation Professional — senior-level automation management</li>
+            <li><strong>IEC 62443 Cybersecurity Certificate:</strong> Industrial cybersecurity professional credential</li>
+            <li><strong>PMP:</strong> Project Management Professional — for project leadership roles</li>
+            <li><strong>Vendor certifications:</strong> DeltaV, Siemens TIA Portal, Rockwell, AVEVA InTouch</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="completion-row">
+        <button class="check-btn" id="chk-career" onclick="markComplete('career',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Career Development as complete</span>
+      </div>
+    </section>
+
+    <!-- ▸ INTERVIEW PREP -->
+    <section class="page" id="page-interview" aria-label="Interview Preparation">
+      <h1 class="page-title">Interview Prep</h1>
+      <p class="page-subtitle">// TECHNICAL · BEHAVIORAL · SCENARIO · COMPLIANCE</p>
+
+      <div class="card" style="margin-bottom:var(--sp2)">
+        <div class="card-meta">Filter Questions</div>
+        <div class="select-wrap" style="margin-top:4px">
+          <select id="interview-filter" onchange="filterInterviewQ()" aria-label="Filter by question type">
+            <option value="all">All Types</option>
+            <option value="technical">Technical</option>
+            <option value="behavioral">Behavioral</option>
+            <option value="scenario">Scenario-Based</option>
+            <option value="compliance">Compliance</option>
+          </select>
+        </div>
+      </div>
+      <div id="interview-questions"></div>
+      <div class="completion-row">
+        <button class="check-btn" id="chk-interview" onclick="markComplete('interview',this)" aria-label="Mark complete">✓</button>
+        <span class="check-label">Mark Interview Prep as complete</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav id="bottom-nav" role="navigation" aria-label="Main navigation">
+    <button class="nav-item active" data-page="dashboard" onclick="navigate('dashboard',this)" aria-label="Dashboard">
+      <div class="nav-icon">⌂</div><span class="nav-label">Home</span>
+    </button>
+    <button class="nav-item" data-page="infra" onclick="navigate('infra',this)" aria-label="Systems">
+      <div class="nav-icon">⚙</div><span class="nav-label">Systems</span>
+    </button>
+    <button class="nav-item" data-page="csv" onclick="navigate('csv',this)" aria-label="Compliance">
+      <div class="nav-icon">✓</div><span class="nav-label">Comply</span>
+    </button>
+    <button class="nav-item" data-page="trouble" onclick="navigate('trouble',this)" aria-label="Debug">
+      <div class="nav-icon">⚡</div><span class="nav-label">Debug</span>
+    </button>
+    <button class="nav-item" data-page="interview" onclick="navigate('interview',this)" aria-label="Interview Prep">
+      <div class="nav-icon">◈</div><span class="nav-label">Prep</span>
+    </button>
+  </nav>
+
+  <!-- GLOSSARY POPUP -->
+  <div id="glossary-popup" role="dialog" aria-modal="true" aria-labelledby="glossary-term-title">
+    <button id="close-glossary" onclick="closeGlossary()" aria-label="Close">✕</button>
+    <div id="glossary-term-title"></div>
+    <div id="glossary-term-def"></div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+const APP = {
+  completed:  JSON.parse(localStorage.getItem('ae2-completed')   || '{}'),
+  quizPassed: JSON.parse(localStorage.getItem('ae2-quizPassed')  || '{}'),
+  competency: JSON.parse(localStorage.getItem('ae2-competency')  || '{}'),
+  theme:      localStorage.getItem('ae2-theme') || 'dark'
+};
+
+const MODULES = [
+  {id:'role',      icon:'👤', name:'Role Overview',           desc:'Scope, expectations, industry context',       page:'role'},
+  {id:'infra',     icon:'🖧', name:'Automation Infrastructure',desc:'DCS, PLC, BAS, SCADA, Network',              page:'infra'},
+  {id:'control',   icon:'⚙', name:'Control Systems',          desc:'PID, advanced control, alarms, historian',   page:'control'},
+  {id:'csv',       icon:'📋', name:'CSV & Regulatory',         desc:'21 CFR 11, GAMP 5, data integrity',          page:'csv'},
+  {id:'slc',       icon:'🔄', name:'Software Lifecycle',       desc:'SDLC, change control, commissioning',        page:'slc'},
+  {id:'trouble',   icon:'🔍', name:'Troubleshooting',          desc:'Fault analysis, RCA, diagnostic workflow',   page:'trouble'},
+  {id:'pm',        icon:'📊', name:'Project Management',       desc:'Scheduling, risk, cross-functional',         page:'pm'},
+  {id:'collab',    icon:'🌐', name:'Global Collaboration',     desc:'Multi-site, communication, standards',       page:'collab'},
+  {id:'lean',      icon:'📈', name:'Lean & Excellence',        desc:'OEE, Kaizen, continuous improvement',        page:'lean'},
+  {id:'tools',     icon:'🛠', name:'Tools & Digital Systems',  desc:'MES, LIMS, cybersecurity, CMMS',             page:'tools'},
+  {id:'career',    icon:'🎯', name:'Career Development',       desc:'Competency matrix, certifications, path',    page:'career'},
+  {id:'interview', icon:'💼', name:'Interview Preparation',    desc:'Technical, behavioral, scenario questions',  page:'interview'},
+];
+
+const GLOSSARY = {
+  DCS:'Distributed Control System — control architecture distributing logic across multiple field controllers via communication bus. Purpose-built for continuous process control with inherent redundancy. Common platforms: Emerson DeltaV, Honeywell Experion PKS, ABB 800xA, Yokogawa CENTUM VP.',
+  PLC:'Programmable Logic Controller — industrial digital computer for discrete and sequential control. Programmed using IEC 61131-3 languages (LD, FBD, ST, SFC). Faster scan times than DCS; excellent for machine automation and packaging lines.',
+  PID:'Proportional-Integral-Derivative controller — the foundational feedback control algorithm. P responds to current error, I eliminates steady-state offset, D responds to rate of change. Tuning involves finding Kp, Ti, and Td for desired closed-loop response.',
+  Historian:'Process data historian — time-series database optimized for high-frequency process data (tags). Uses compression algorithms (swinging door, exception-based) to reduce storage. Common: OSIsoft PI, AspenTech IP21, Honeywell Uniformance PHD.',
+  MES:'Manufacturing Execution System — software bridging ERP planning and shop-floor execution. Manages electronic batch records, recipe execution, material tracking, and operator instructions. Common: Siemens SIMATIC IT, Rockwell FactoryTalk, Werum PAS-X.',
+  SCADA:'Supervisory Control and Data Acquisition — system for remote monitoring and control of field devices. Collects data from PLCs/RTUs, presents on operator displays, enables remote control. GxP system when it generates or stores official records.',
+  CSV:'Computer Systems Validation — documented evidence that a computerized system consistently operates as intended in a GxP environment. Required by FDA 21 CFR Parts 11, 211, 820 and EU GMP Annex 11. Follows GAMP 5 risk-based lifecycle.',
+  GAMP:'Good Automated Manufacturing Practice — ISPE guidance for validating automated systems in regulated manufacturing. GAMP 5 introduced risk-based software categorization (Cat 1, 3, 4, 5) to scale validation effort to risk level.',
+};
+
+const INTERVIEW_QS = [
+  {type:'technical',q:'Explain the difference between a DCS and a PLC, and when you would select each for a pharmaceutical application.',a:'A DCS distributes control logic across redundant field controllers with tight integration — ideal for bioreactor or distillation column control where process continuity is critical. A PLC excels at discrete sequential logic and machine control — better suited for packaging lines or automated dispensing equipment. In pharmaceutical applications, DCS is preferred for process-critical batch control due to inherent redundancy and integrated batch management (ISA-88). PLCs are preferred for utilities, HVAC control, and machine automation. GMP implication: both require CSV under GAMP 5 Category 4 when GxP records are generated.'},
+  {type:'technical',q:'Walk through the 21 CFR Part 11 requirements for implementing a new electronic batch record system.',a:'Part 11 applies because the system creates GxP records replacing paper. Key requirements: (1) Unique user IDs and password controls with complexity/expiry policies. (2) Comprehensive audit trail recording all data creation, modification, deletion with user attribution and timestamp. (3) System access controls limiting actions to authorized roles. (4) Electronic signature with two-component identification (user ID + password), printed name, date/time, and meaning. (5) Data backup and recovery procedures. The system must be validated under a CSV protocol demonstrating all Part 11 controls function as designed. Annual review of access controls is typically required post-implementation.'},
+  {type:'technical',q:'A DCS PID temperature loop is hunting (oscillating). Describe your diagnostic approach.',a:'Start by checking if hunting occurred after any process or configuration change — often the trigger. Review historian trend for oscillation period and amplitude. Check: (1) Is the process itself oscillating or the controller output? (2) Review tuning parameters — excessive Kp or too-fast integral time (Ti) commonly causes oscillation. (3) Check for valve issues — stiction causes limit cycling distinct from PID oscillation. (4) Verify instrument calibration and signal noise (noisy signal + derivative = amplified oscillation). (5) If oscillation started after a process change, re-tune using current process dynamics. Apply Lambda tuning methodology. Document any tuning change through change control before deployment.'},
+  {type:'behavioral',q:'Describe a time when you identified a data integrity issue in an automated system. How did you handle it?',a:'Frame using STAR (Situation, Task, Action, Result). Key elements: How you discovered the issue (proactive vs. reactive), immediate containment actions, notification chain (QA notification typically mandatory), impact assessment, root cause investigation, CAPA implementation, and effectiveness verification. Emphasize: documentation of every step, ALCOA+ compliance of the investigation record itself, and systemic corrective action preventing recurrence. If data integrity affected product release decisions, describe how regulatory obligations were met.'},
+  {type:'behavioral',q:'Tell me about leading a complex automation project across multiple departments with competing priorities.',a:'Demonstrate: (1) Structured project management — WBS, schedule, RACI matrix. (2) Stakeholder management — navigating conflicting priorities (QA wants perfect documentation; Manufacturing wants system now; IT wants security compliance). (3) Communication discipline — regular status updates, transparent issue reporting. (4) Risk management — identifying and mitigating risks that arose. (5) Outcome — quantify success: on time, within budget, zero critical deviations at qualification. Show systems thinking: decisions in one area affected others.'},
+  {type:'scenario',q:'During a critical batch, a DCS controller module fails and backup does not automatically switch over. You are on call. Walk through your response.',a:'Immediate (0–5 min): Contact batch team leader and assess immediate product risk. Engage manual control procedures if process is at risk. Check DCS system diagnostics for controller fault codes. Verify physical hardware status (power, communication indicators). Stabilization (5–30 min): Identify if backup switchover failed due to configuration, hardware failure, or network issue. Attempt manual failover from DCS engineering station if safe. Isolation and recovery (30–120 min): Replace failed controller with spare. Verify program restoration from backup. Validate all I/O and alarms before returning to automatic. Documentation: Log all actions with timestamps, process conditions throughout event. Initiate deviation report. RCA: Was failover tested during last qualification? Is there a periodic failover test SOP? Update SOP if gap identified.'},
+  {type:'scenario',q:'You are asked to lead CSV validation of a new LIMS. Outline your approach.',a:'Phase 1 — Planning: Draft Validation Plan defining scope, team, schedule, and risk-based strategy. Classify per GAMP 5 (typically Category 4). Phase 2 — URS & Specification Review: Verify URS covers all GxP-critical functions. Review vendor Functional Specification. Conduct design review. Phase 3 — Supplier Assessment: Audit vendor QMS and SDLC practices. Phase 4 — IQ: Verify hardware, software versions, configuration baselines, security settings. Phase 5 — OQ: Test all specified functions; test 21 CFR Part 11 controls (audit trail, e-signatures, access controls). Phase 6 — PQ: Demonstrate consistent performance under production-representative conditions. Phase 7 — Report & Release: Author VSR, QA approval, training completion, change control procedures established.'},
+  {type:'compliance',q:'An FDA investigator asks you to demonstrate your automation system\'s audit trail captures all GxP-relevant actions.',a:'Structured demonstration: (1) Show system access log — login/logout with timestamps and user IDs. (2) Execute a parameter change on a validated screen; show audit trail entry capturing: who changed it, from what value, to what value, when, and reason. (3) Demonstrate audit trail cannot be modified, disabled, or deleted by operators. (4) Show report generation for audit trail review by date range, user, and event type. (5) Demonstrate backup and restoration procedure for audit trail data. Key principle: the audit trail must be as reliable as the data itself. Gaps — system clock accuracy, credential sharing, or audit trail disabled during a batch — are Part 11 observations.'},
+  {type:'compliance',q:'Your site is implementing a new PLC for a packaging line. QA asks if it needs to be validated. How do you determine scope?',a:'Use GxP impact assessment: (1) Does the system directly control a process step producing a GxP record? (2) Does it control a quality attribute (fill volume, seal integrity, label placement)? (3) Does it generate, modify, or archive data constituting a batch record? If yes to any, CSV is required. For a packaging line PLC controlling fill volumes and rejections: it is GxP-impacting. GAMP 5 Category 4 applies. CSV scope: URS, design review, IQ (hardware, software version control), OQ (functional tests: all reject conditions, fill volume control, alarm testing), PQ (production-representative batches). Change control applies to all post-validation changes. If the PLC only controls conveyors with no quality impact, a risk-justified reduced scope may be defensible with QA approval.'},
+];
+
+const COMPETENCIES = [
+  {id:'dcs',label:'DCS Systems'},{id:'plc',label:'PLC/Programming'},{id:'csv2',label:'CSV/Validation'},
+  {id:'inst',label:'Instrumentation'},{id:'trouble2',label:'Troubleshooting'},{id:'docs',label:'GxP Documentation'},
+  {id:'project',label:'Project Mgmt'},{id:'comm',label:'Communication'},
+];
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
+const PAGE_MAP = {
+  dashboard:'page-dashboard',role:'page-role',infra:'page-infra',control:'page-control',
+  csv:'page-csv',slc:'page-slc',trouble:'page-trouble',pm:'page-pm',collab:'page-collab',
+  lean:'page-lean',tools:'page-tools',career:'page-career',interview:'page-interview',
+};
+const PAGE_TITLES = {
+  dashboard:'Overview',role:'Role Overview',infra:'Infrastructure',control:'Control Systems',
+  csv:'CSV & Compliance',slc:'Software Lifecycle',trouble:'Troubleshooting',pm:'Project Mgmt',
+  collab:'Global Collab',lean:'Lean & OE',tools:'Tools & Systems',career:'Career Dev',interview:'Interview Prep',
+};
+
+function navigate(pageId, navBtn) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target = document.getElementById(PAGE_MAP[pageId]);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if (navBtn) navBtn.classList.add('active');
+  document.getElementById('current-page-title').textContent = PAGE_TITLES[pageId]||pageId;
+  document.getElementById('main-content').scrollTop = 0;
+  if (pageId==='career') renderCompetency();
+}
+
+function navigateToModule(pageId) {
+  const navItem = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+  navigate(pageId, navItem);
+}
+
+/* ═══════════════════════════════════════
+   ACCORDIONS (smooth height)
+═══════════════════════════════════════ */
+document.addEventListener('click', function(e){
+  const hdr = e.target.closest('.accordion-header');
+  if (!hdr) return;
+  const acc = hdr.closest('.accordion');
+  const wasOpen = acc.classList.contains('open');
+
+  // Toggle
+  acc.classList.toggle('open',!wasOpen);
+  hdr.setAttribute('aria-expanded',!wasOpen);
+});
+
+/* ═══════════════════════════════════════
+   QUIZ
+═══════════════════════════════════════ */
+function handleQuiz(btn, qId) {
+  const container = btn.closest('.quiz-container');
+  const options = container.querySelectorAll('.quiz-option');
+  const feedback = document.getElementById('fb-'+qId);
+  const isCorrect = btn.dataset.correct === 'true';
+
+  options.forEach(o=>{
+    o.disabled = true;
+    if (o.dataset.correct==='true') o.classList.add('correct');
+    else if (o===btn && !isCorrect) {
+      o.classList.add('wrong');
+      o.classList.add('shake');
+      setTimeout(()=>o.classList.remove('shake'),400);
+    }
+  });
+
+  feedback.classList.add('show');
+  if (isCorrect) {
+    feedback.classList.add('correct-fb');
+    feedback.textContent = '✓ Correct. '+getExplanation(qId);
+    if (!APP.quizPassed[qId]) {
+      APP.quizPassed[qId]=true;
+      localStorage.setItem('ae2-quizPassed',JSON.stringify(APP.quizPassed));
+      updateStats();
+    }
+  } else {
+    feedback.classList.add('wrong-fb');
+    feedback.textContent = '✗ Incorrect. '+getExplanation(qId);
+  }
+}
+
+const EXPLANATIONS = {
+  'q-role-1':'GAMP (Good Automated Manufacturing Practice) 5 from ISPE is the industry-standard guide for Computer Systems Validation in regulated manufacturing.',
+  'q-infra-1':'In the Purdue Model / ISA-95, Level 3 represents site manufacturing operations including MES, batch management, and data historians.',
+  'q-ctrl-1':'In cascade control, the inner (secondary) loop receives the field PV measurement. The outer (primary) loop output becomes the inner loop setpoint.',
+  'q-csv-1':'A configured SCADA system is GAMP 5 Category 4 — vendor software configured to meet user requirements. Requires configuration specs + IQ/OQ/PQ.',
+  'q-slc-1':'In the V-model, PQ is the right-arm counterpart to the URS — it verifies the system meets user requirements under production conditions.',
+  'q-tr-1':'The 5-Why method requires asking why the identified cause occurred. Advancing to the cause of the failure is the required next step in the methodology.',
+  'q-pm-1':'A RACI Matrix defines Responsible, Accountable, Consulted, and Informed parties for each project activity, preventing role ambiguity.',
+};
+function getExplanation(qId){return EXPLANATIONS[qId]||'Review the relevant section for a detailed explanation.'}
+
+/* ═══════════════════════════════════════
+   COMPLETION
+═══════════════════════════════════════ */
+function markComplete(moduleId, btn) {
+  const done = !APP.completed[moduleId];
+  APP.completed[moduleId] = done;
+  localStorage.setItem('ae2-completed',JSON.stringify(APP.completed));
+  btn.classList.toggle('done',done);
+  if (done) btn.classList.add('pop');
+  setTimeout(()=>btn.classList.remove('pop'),300);
+  updateStats();
+  renderModuleList();
+}
+
+function updateStats() {
+  const c = Object.values(APP.completed).filter(Boolean).length;
+  const q = Object.values(APP.quizPassed).filter(Boolean).length;
+  const pct = Math.round((c/MODULES.length)*100);
+  animateValue('stat-completed',c);
+  animateValue('stat-score',pct,'%');
+  animateValue('stat-quizzes',q);
+  document.getElementById('overall-progress').style.width = pct+'%';
+  document.getElementById('progress-label').textContent = c+' of '+MODULES.length+' modules completed';
+}
+
+function animateValue(id, target, suffix='') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const start = parseInt(el.textContent)||0;
+  if (start===target) return;
+  const dur = 400, step = 16;
+  let cur = start, steps = Math.ceil(dur/step);
+  const inc = (target-start)/steps;
+  const t = setInterval(()=>{
+    cur += inc;
+    steps--;
+    if (steps<=0){clearInterval(t);el.textContent=target+suffix}
+    else el.textContent=Math.round(cur)+suffix;
+  },step);
+}
+
+/* ═══════════════════════════════════════
+   MODULE LIST
+═══════════════════════════════════════ */
+function renderModuleList() {
+  const list = document.getElementById('module-list');
+  list.innerHTML = MODULES.map((m,i)=>{
+    const done = APP.completed[m.id];
+    return `<div class="module-item${done?' done':''}" role="listitem" tabindex="0"
+      style="animation-delay:${i*0.04}s"
+      onclick="navigateToModule('${m.page}')"
+      onkeydown="if(event.key==='Enter')navigateToModule('${m.page}')">
+      <div class="module-icon">${m.icon}</div>
+      <div>
+        <div class="module-name">${m.name}</div>
+        <div class="module-desc">${m.desc}</div>
+      </div>
+      <div class="module-status ${done?'complete':'pending'}">${done?'✓ DONE':'→'}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════
+   COMPETENCY
+═══════════════════════════════════════ */
+function renderCompetency() {
+  const form = document.getElementById('comp-fields');
+  if (!form) return;
+  form.innerHTML = COMPETENCIES.map(c=>`
+    <div style="margin-bottom:var(--sp1)">
+      <label class="field-label" for="comp-${c.id}">${c.label} (1–4)</label>
+      <div class="select-wrap">
+        <select id="comp-${c.id}" aria-label="${c.label}">
+          <option value="0">Select...</option>
+          <option value="1" ${APP.competency[c.id]==1?'selected':''}>1 – Novice</option>
+          <option value="2" ${APP.competency[c.id]==2?'selected':''}>2 – Developing</option>
+          <option value="3" ${APP.competency[c.id]==3?'selected':''}>3 – Proficient</option>
+          <option value="4" ${APP.competency[c.id]==4?'selected':''}>4 – Expert</option>
+        </select>
+      </div>
+    </div>`).join('');
+  renderMatrix();
+}
+
+function saveCompetency(){
+  COMPETENCIES.forEach(c=>{
+    const v = parseInt(document.getElementById('comp-'+c.id)?.value||0);
+    if (v) APP.competency[c.id]=v;
+  });
+  localStorage.setItem('ae2-competency',JSON.stringify(APP.competency));
+  renderMatrix();
+}
+
+function renderMatrix(){
+  const m = document.getElementById('competency-matrix');
+  if (!m) return;
+  const colors = ['','#f43f5e','#f59e0b','#00d4ff','#10b981'];
+  const labels = ['','Novice','Developing','Proficient','Expert'];
+  const widths = [0,25,50,75,100];
+  m.innerHTML = COMPETENCIES.map(c=>{
+    const s = APP.competency[c.id]||0;
+    return `<div class="matrix-cell" style="${s?'border-color:'+colors[s]+'33':''}">
+      <div class="matrix-cell-label">${c.label}</div>
+      <div class="matrix-bar-wrap"><div class="matrix-bar" style="width:${widths[s]||0}%;background:${colors[s]||'var(--border-md)'}"></div></div>
+      <div class="matrix-score-lbl" style="color:${colors[s]||'var(--text-muted)'}">${s?labels[s]:'—'}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════
+   INTERVIEW
+═══════════════════════════════════════ */
+function renderInterviewQuestions(filter='all'){
+  const c = document.getElementById('interview-questions');
+  const list = filter==='all' ? INTERVIEW_QS : INTERVIEW_QS.filter(q=>q.type===filter);
+  const tc = {technical:'badge-blue',behavioral:'badge-blue',scenario:'badge-gold',compliance:'badge-rose'};
+  c.innerHTML = list.map(item=>`
+    <div class="interview-card">
+      <span class="badge ${tc[item.type]}">${item.type.toUpperCase()}</span>
+      <div class="interview-q">${item.q}</div>
+      <button class="toggle-answer" onclick="toggleAnswer(this)" aria-expanded="false">▶ Show Structured Answer</button>
+      <div class="interview-a">${item.a}</div>
+    </div>`).join('');
+}
+
+function toggleAnswer(btn){
+  const a = btn.nextElementSibling;
+  const open = a.classList.contains('show');
+  a.classList.toggle('show',!open);
+  btn.textContent = open?'▶ Show Structured Answer':'▼ Hide Answer';
+  btn.setAttribute('aria-expanded',!open);
+}
+
+function filterInterviewQ(){
+  renderInterviewQuestions(document.getElementById('interview-filter').value);
+}
+
+/* ═══════════════════════════════════════
+   GLOSSARY
+═══════════════════════════════════════ */
+function showGlossary(term){
+  document.getElementById('glossary-term-title').textContent = term;
+  document.getElementById('glossary-term-def').textContent = GLOSSARY[term]||'Definition not found.';
+  document.getElementById('glossary-popup').classList.add('open');
+}
+function closeGlossary(){
+  document.getElementById('glossary-popup').classList.remove('open');
+}
+
+/* ═══════════════════════════════════════
+   THEME
+═══════════════════════════════════════ */
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme',APP.theme);
+  document.getElementById('theme-toggle').textContent = APP.theme==='dark'?'☀':'◑';
+}
+document.getElementById('theme-toggle').addEventListener('click',()=>{
+  APP.theme = APP.theme==='dark'?'light':'dark';
+  localStorage.setItem('ae2-theme',APP.theme);
+  applyTheme();
+});
+
+/* ═══════════════════════════════════════
+   PRINT
+═══════════════════════════════════════ */
+document.getElementById('print-btn').addEventListener('click',()=>window.print());
+
+/* ═══════════════════════════════════════
+   OFFLINE
+═══════════════════════════════════════ */
+function checkOnline(){document.getElementById('offline-bar').classList.toggle('visible',!navigator.onLine)}
+window.addEventListener('online',checkOnline);
+window.addEventListener('offline',checkOnline);
+
+/* ═══════════════════════════════════════
+   RESTORE STATE
+═══════════════════════════════════════ */
+function restoreState(){
+  Object.keys(APP.completed).forEach(id=>{
+    if (APP.completed[id]){
+      const btn = document.getElementById('chk-'+id);
+      if (btn) btn.classList.add('done');
+    }
+  });
+}
+
+/* ═══════════════════════════════════════
+   PWA
+═══════════════════════════════════════ */
+function registerSW(){
+  if (!('serviceWorker' in navigator)) return;
+  const code = `
+const V='ae2v2';
+self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(['./'])));self.skipWaiting()});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V).map(k=>caches.delete(k)))));clients.claim()});
+self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>new Response('Offline',{headers:{'Content-Type':'text/plain'}}))))});`;
+  const blob = new Blob([code],{type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+}
+
+function injectManifest(){
+  const m = {name:'Automation Engineer II – Professional Guide',short_name:'AE-II Guide',
+    description:'Professional learning platform for regulated manufacturing automation roles',
+    start_url:'./',display:'standalone',background_color:'#050d1a',theme_color:'#0a1628',
+    icons:[{src:`data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#0a1628"/><text y=".9em" font-size="70" text-anchor="middle" x="50">⚙</text></svg>')}`,sizes:'512x512',type:'image/svg+xml',purpose:'any maskable'}]};
+  const link = document.createElement('link');
+  link.rel='manifest';
+  link.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/json'}));
+  document.head.appendChild(link);
+}
+
+/* ═══════════════════════════════════════
+   KEYBOARD
+═══════════════════════════════════════ */
+document.addEventListener('keydown',e=>{
+  if (e.key==='Escape') closeGlossary();
+});
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  applyTheme();
+  renderModuleList();
+  updateStats();
+  restoreState();
+  renderMatrix();
+  renderInterviewQuestions();
+  checkOnline();
+  registerSW();
+  injectManifest();
+});
+</script>
+</body>
+</html>
